@@ -24,31 +24,13 @@ Our Round 1B solution processes multiple document collections to intelligently e
 
 ## Execution Instructions
 
-### Option 1: Run Locally (Python)
+### Build the Docker Image
 
-1. **Install dependencies**
+```bash
+docker build --platform linux/amd64 -t adobe-pdf-processor:ciscopaypal-v1 .
+```
 
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-2. **Execute the script**
-
-   ```bash
-   python main.py
-   ```
-
-   This will process all directories named `Collection X` (e.g., `Collection 1`, `Collection 2`, `Collection 3`) inside the current folder.
-
-### Option 2: Run via Docker
-
-1. **Build the Docker image**
-
-   ```bash
-   docker build --platform linux/amd64 -t adobe-pdf-processor:ciscopaypal-v1b .
-   ```
-
-2. **Run the container**
+### Run the Docker Container
 
    For Unix/macOS:
 
