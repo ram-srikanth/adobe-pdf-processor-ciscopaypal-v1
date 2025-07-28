@@ -55,7 +55,7 @@ Each collection must contain:
 1. **Build the image**
 
    ```bash
-   docker build -t round1b-analyzer .
+   docker build --platform linux/amd64 -t adobe-pdf-processor:ciscopaypal-v1 .
    ```
 
 2. **Run the container**
@@ -63,13 +63,13 @@ Each collection must contain:
    Mount the current directory inside Docker so it can access all collections:
 
    ```bash
-   docker run --rm -v $(pwd):/app round1b-analyzer
+   docker run --rm -v $(pwd):/app adobe-pdf-processor:ciscopaypal-v1
    ```
 
    On Windows (PowerShell):
 
    ```powershell
-   docker run --rm -v ${PWD}:/app round1b-analyzer
+   docker run --rm -v ${PWD}:/app adobe-pdf-processor:ciscopaypal-v1
    ```
 
 ---
