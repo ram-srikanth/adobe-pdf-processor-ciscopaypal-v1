@@ -1,10 +1,106 @@
-# Round 1B - Adobe PDF Collection Analyzer
+# Cisco\_Paypal\_Unemployed - Adobe Hackathon 2025 Round 1B Submission
 
-This project processes a set of document collections using PDF parsing, heading extraction, and relevance-based ranking to extract the **most useful sections and summaries** based on a given persona and job description.
+## Team Members
+
+* Ram Srikanth
+* Nikhileshwar Reddy
+* Thanush
 
 ---
 
-## Directory Structure
+## Project Overview
+
+Our Round 1B solution processes multiple document collections to intelligently extract the most relevant sections and summaries based on a user persona and their job-to-be-done. It uses a combination of rule-based heading extraction, TF-IDF-based relevance scoring, and light summarization to generate concise insights from a given corpus. The code is entirely offline, scalable, and designed to work efficiently with diverse PDF formats.
+
+---
+
+## Technology Stack
+
+* [PyMuPDF (fitz)](https://pymupdf.readthedocs.io/) — for extracting text and structure from PDF files
+* [scikit-learn](https://scikit-learn.org/) — for TF-IDF vectorization and cosine similarity
+* Python 3.11 — core programming language
+
+---
+
+## Execution Instructions
+
+### Option 1: Run Locally (Python)
+
+1. **Install dependencies**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. **Execute the script**
+
+   ```bash
+   python main.py
+   ```
+
+   This will process all directories named `Collection X` (e.g., `Collection 1`, `Collection 2`, `Collection 3`) inside the current folder.
+
+### Option 2: Run via Docker
+
+1. **Build the Docker image**
+
+   ```bash
+   docker build --platform linux/amd64 -t adobe-pdf-processor:ciscopaypal-v1b .
+   ```
+
+2. **Run the container**
+
+   For Unix/macOS:
+
+   ```bash
+   docker run --rm -v $(pwd):/app adobe-pdf-processor:ciscopaypal-v1b
+   ```
+
+   For Windows (PowerShell):
+
+   ```powershell
+   docker run --rm -v ${PWD}:/app adobe-pdf-processor:ciscopaypal-v1b
+   ```
+
+---
+
+## Output Format
+
+Each `challenge1b_output.json` will contain:
+
+```json
+{
+  "metadata": {
+    "input_documents": ["doc1.pdf", "doc2.pdf"],
+    "persona": "Travel Agent",
+    "job_to_be_done": "Plan a trip to South of France",
+    "timestamp": "2025-07-28T18:30:00"
+  },
+  "extracted_sections": [
+    {
+      "document": "doc1.pdf",
+      "section_title": "Best Itineraries",
+      "importance_rank": 1,
+      "page_number": 3,
+      "relevance_score": 0.832,
+      "relevance_factors": ["Title matches: itineraries", "Optimal length"]
+    },
+    ...
+  ],
+  "subsection_analysis": [
+    {
+      "document": "doc1.pdf",
+      "page_number": 3,
+      "refined_text": "The south of France is known for its coastal beauty, charming villages..."
+    },
+    ...
+  ]
+}
+```
+
+---
+
+## Directory Layout
 
 ```
 .
@@ -25,80 +121,18 @@ This project processes a set of document collections using PDF parsing, heading 
 │   └── challenge1b_output.json
 ```
 
-Each collection must contain:
+---
 
-* A `PDFs/` folder with documents
-* A `challenge1b_input.json` file specifying the persona, task, and filenames
+## Compliance Checklist
+
+* [x] Works offline without internet access
+* [x] Processes all specified PDF documents
+* [x] Produces `challenge1b_output.json` for each collection
+* [x] Completes execution within time and memory constraints
+* [x] Uses interpretable, rule-based methods for structure and content extraction
 
 ---
 
-## How to Run
+## Submission Statement
 
-### Option 1: Python (Locally)
-
-1. **Install dependencies**
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-2. **Run the processor**
-
-   ```bash
-   python main.py
-   ```
-
----
-
-### Option 2: Docker
-
-1. **Build the image**
-
-   ```bash
-   docker build --platform linux/amd64 -t adobe-pdf-processor:ciscopaypal-v1 .
-   ```
-
-2. **Run the container**
-
-   Mount the current directory inside Docker so it can access all collections:
-
-   ```bash
-   docker run --rm -v $(pwd):/app adobe-pdf-processor:ciscopaypal-v1
-   ```
-
-   On Windows (PowerShell):
-
-   ```powershell
-   docker run --rm -v ${PWD}:/app adobe-pdf-processor:ciscopaypal-v1
-   ```
-
----
-
-## Output
-
-Each `challenge1b_output.json` will contain:
-
-* `metadata`: Input details and timestamp
-* `extracted_sections`: Top 10 relevant headings across documents
-* `subsection_analysis`: Concise summaries from top pages
-
----
-
-## Team
-
-**Team Name**: Cisco\_Paypal\_Unemployed
-**Members**:
-
-* Ram Srikanth
-* Nikhileshwar Reddy
-* Thanush
-
----
-
-## Notes
-
-* Uses TF-IDF + cosine similarity for relevance ranking
-* Summarization is done using sentence ranking (unsupervised)
-* Fully self-contained with zero external API dependencies
-
----
+This repository is submitted as part of **Adobe Hackathon 2025 - Round 1B** by the team **Cisco\_Paypal\_Unemployed**.
